@@ -41,7 +41,7 @@ import utils
 # from resnet import resnet as caffe_resnet
 
 """# Wrote custom functions to process input to the neural network"""
-
+vocabulary_path ="MTP_VQA_FINAL/vocab.json"
 def prepare_questions(questions):
     '''
     Remove punctuation marks and spaces. Returns list
