@@ -4,7 +4,7 @@ train_path = '/datasets/home/49/049/s2solomo/show_tell2/show-attend-and-tell-ten
 val_path = '/datasets/home/49/049/s2solomo/show_tell2/show-attend-and-tell-tensorflow/image/val2014'  # directory of validation images
 test_path = 'mscoco/test2015'  # directory of test images
 preprocessed_path = './resnet-14x14.h5'  # path where preprocessed features are saved to and loaded from
-vocabulary_path = 'vocab.json'  # path where the used vocabularies for question and answers are saved to
+vocabulary_path = 'MTP_VQA_FINAL/vocab.json'  # path where the used vocabularies for question and answers are saved to
 
 task = 'OpenEnded'
 dataset = 'mscoco'
