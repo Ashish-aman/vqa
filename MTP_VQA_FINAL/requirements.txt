@@ -11,4 +11,4 @@ keras-layer-normalization
 keras
 matplotlib
 scikit-image
-opencv-python
+opencv
