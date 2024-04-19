@@ -149,7 +149,7 @@ def demo(img_path,question):
         for a in answer.data:
             answers.append(list(a_to_i.keys())[a.data])
     print_answers(answers)
-    visualize_attention(att_out,img_path)
+    # visualize_attention(att_out,img_path)
     return answers
 
 
