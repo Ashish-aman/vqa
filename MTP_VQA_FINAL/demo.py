@@ -117,7 +117,7 @@ def demo(img_path,question):
     cudnn.benchmark = True
     # Load pre-trained image
     # Download from https://github.com/snagiri/ECE285_Jarvis_ProjectA/releases/download/v1.0/50epoch.pth
-    log = torch.load('MTP_VQA_FINAL/50epoch.pth')
+    log = torch.load('MTP_VQA_FINAL/50epoch.pth',map_location=torch.device('cpu'))
 
     tokens = len(log['vocab']['question']) + 1
     net = model.Net(tokens)
