@@ -149,8 +149,8 @@ def demo(img_path,question):
         for a in answer.data:
             answers.append(list(a_to_i.keys())[a.data])
     print_answers(answers)
-    # visualize_attention(att_out,img_path)
-    return answers
+    return visualize_attention2(att_out,img_path)
+    # return answers
 
 
 
@@ -168,7 +168,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 from skimage.transform import pyramid_expand
+def visualize_attention2(att_out, img_path):
+    '''
+    Takes output of attention layer and overlays it on the input image. Then shows both.
+    '''
+    att_out = att_out.view(-1, 14, 14)
+    num_im = att_out.size(0)
+    im = Image.open(img_path)
+    im = np.array(im)
+    im = cv2.resize(im, (896, 896))  # Resize the image (adjust size as needed)
 
+    fig, axs = plt.subplots(1, num_im, figsize=(10, 10))
+
+    for i in range(num_im):
+        attention_map = att_out[i].cpu().detach().numpy()
+        attention_map = cv2.resize(attention_map, (im.shape[1], im.shape[0]))  # Resize attention map to match image size
+
+        # Threshold the attention map
+        thresholded_map = np.where(attention_map > 0.5, 1, 0).astype(np.uint8)
+
+        # Find contours in the thresholded map
+        _,contours, _ = cv2.findContours(thresholded_map, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # Draw bounding box around each contour
+        for contour in contours:
+            x, y, w, h = cv2.boundingRect(contour)
+            cv2.rectangle(im, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Green bounding box on the image
+
+        axs[i].imshow(im)
+        axs[i].set_title(f'Attention Image {i}')
+        axs[i].axis('off')
+
+    plt.show()
 def visualize_attention(att_out, img_path):
     '''
     Takes output of attention layer and overlays it on the input image. Then shows both.
